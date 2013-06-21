@@ -1,0 +1,247 @@
+@charset "utf-8";
+* { padding:0; margin:0;}
+body { font-family: "微软雅黑", "宋体", Arial; font-size: 12px; color: #333; background: url(../assets/m_bg.jpg) repeat;}
+li { list-style: none;}
+a { text-decoration: none;}
+input { border: none;}
+button {
+    border: none;
+    font-size: 14px;
+    font-family:"微软雅黑", "宋体", Arial;
+    cursor:pointer;
+    display: inline-block;
+}
+img { border: none;}
+
+.h1 { font-size: 38px; font-weight: bolder; text-shadow: 1px 1px 0 rgba(255,255,255,1);}
+.h2 {font-size: 24px; color: #333; text-shadow: 1px 1px 0 rgba(255,255,255,1);}
+
+.clear { clear: both;}
+.red { color: #900;}
+.center { text-align: center;}
+
+.box { width: 1000px; margin: 0 auto;}
+.close { 
+    width:16px; 
+    height:16px;
+    display:block;
+    overflow:hidden;
+    text-indent: -999px;
+    background: url(../assets/close.png) no-repeat;
+    position:absolute;
+    top: 5px;
+    right: 5px;
+    cursor: pointer;
+}
+/*--------------*/
+.login { width: 504px; height: 370px; background: url(../assets/login_bg.png) no-repeat; margin: 80px auto 0;}
+.login_box { padding: 90px 0 0 70px;}
+.login_item { padding: 5px 0; margin: 20px 0;}
+.login_item label {
+    width: 80px;
+    height: 32px;
+    line-height:32px;
+    display: inline-block;
+    text-align: right;
+    font-size: 18px;
+    color: #3683ce;
+    float: left;
+}
+.login_item input {
+    width: 250px;
+    padding: 0 5px;
+    border: none; 
+    background: #ebebeb;
+    height: 32px;
+    line-height: 32px;
+    border-radius: 5px;
+    box-shadow: 1px 1px 2px rgba(0,0,0,0.3) inset;
+}
+.login_btn { padding: 20px 0 0 80px;}
+.login_btn button, .login_btn input[type="submit"]{
+    font-size: 18px;
+    display: inline-block;
+    color: #FFF;
+    cursor:pointer;
+    text-align: center;
+    width: 220px;
+    height: 42px;
+    border: 2px #FFFFFF solid;
+    box-shadow: 1px 1px 5px rgba(0,0,0,0.5);
+    border-radius: 5px;
+    background: #3086da;
+    background: -webkit-gradient(linear, left top, left bottom, from(#338de4), to(#2b7dcd));
+    background: -moz-linear-gradient(top, #338de4, #2b7dcd);
+    /*filter: progid:DXImageTransform.Microsoft.gradient(startcolorstr=#fafafa,endcolorstr=#e5e5e5,gradientType=0);*/
+}
+
+/*----------------*/
+.tishi{
+    text-align: center;
+    padding: 50px 0 30px 0;
+    font-size: 24px;
+}
+.head { 
+    background: url(../assets/h_bg.jpg) repeat-x;
+    height:140px;
+    overflow: hidden;
+}
+.logo { 
+    width: 330px;
+    height: 75px;
+    line-height: 75px;
+    color: #FFF;
+    font-size: 36px;
+    text-align: right;
+    background: url(../assets/logo.png) no-repeat 10px center;
+    margin: 30px 0 0 50px;
+}
+.user_info { float: right; margin-top: -100px; color: #FFF; background: rgba(7,85,195,0.4); padding: 5px 10px;}
+.user_info a { color: #FFF; text-decoration: underline;}
+
+.nav { float: right;}
+.nav li { float: left;}
+.nav li a { 
+    width: 110px; 
+    height: 35px;
+    line-height: 35px;
+    text-align: center;
+    display: block;
+    margin: 0 10px;
+    font-size: 16px;
+    color: #FFF;
+    border-radius: 5px 5px 0 0;
+    background: #07559f;
+}
+.nav li a:hover {background: #0961b5;}
+.nav li a.hover,.nav li a:hover.hover { 
+    background: url(../assets/m_bg.jpg) repeat;
+    color:#07559f;
+    box-shadow: 1px 2px 3px rgba(0,0,0,0.8);
+}
+
+/*----------------*/
+.main { padding: 10px 0 30px 0;}
+.search { padding: 10px; overflow: hidden;}
+.search div { margin-left:20px;}
+
+.textInput_div, .radioInput_div, .select_div { line-height: 24px; float: left;}
+.textInput_div label, .select_div label { 
+    height: 24px;
+    display: inline-block;
+    text-align: right;
+    font-weight: bold;
+}
+.textInput_div input {
+    width: 120px;
+    height: 22px; 
+    line-height: 22px;
+    padding: 0 5px;
+    border: 1px #CCCCCC solid;
+}
+.select_div select {
+    width: 80px;
+    height: 24px; 
+    line-height: 24px;
+    border: 1px #CCCCCC solid;
+    margin-right: 5px;
+}
+
+.radioInput_div input { margin-right: 5px;}
+.radioInput_div span { margin-right: 15px;}
+
+.btn_div { float: left; text-align: center;}
+.btn_div button, .btn {
+    background: #2c7ece;
+    height: 24px;
+    line-height:24px;
+    padding: 0 10px;
+    margin: 0 5px;
+    _padding: 0 3px;
+    _margin: 0 1px;
+    color: #FFF;
+    float: left;
+
+}
+.btn { display: inline-block; cursor: pointer;}
+
+.data_body { padding: 10px 0;}
+
+.table { border: 1px #2c7ece solid; margin-bottom: 20px;}
+.table td, .table th { padding: 10px; line-height: 20px; text-align: left;}
+.table thead { background: #2c7ece; color: #FFF; font-size: 14px;}
+.table tbody { background: #fbfbfb; color: #333;}
+
+.tbg { background: #f3f3f3;}
+
+/*page翻页----*/
+.pageTurn { padding: 10px 0; text-align: center; font-size: 13px; color: #333;}
+.pageTurn a { padding: 5px 12px; margin: 0px 2px; color: #333; background: #dbdbdb;}
+.pageTurn a:hover, .pageTurn a:active { color: #07559f;}
+
+.pageTurn em.current { padding: 5px 12px; font-weight: bold; color: #fff; background: #07559f;}
+.pageTurn .disabled {display: none;}
+
+/*-------------*/
+.foot { height: 50px; background:#d9d8d5; text-align: center; line-height: 50px; color: #999;}
+
+/*--------------*/
+.mask { 
+    background: url(../assets/black.png) repeat;
+    width: 100%;
+    height: 100%;
+    display: none;
+    position: absolute;
+    z-index: 10;
+    top: 0;
+    left: 0;
+}
+.tab { 
+    width: 480px; 
+    font-size:14px;
+    background: url(../assets/m_bg.jpg) repeat;
+    border:5px #333 solid;
+    z-index: 12;
+    position:absolute;
+    box-shadow: 2px 2px 2px rgba(0,0,0,0.5);
+    border-radius: 5px;
+    padding: 5px;
+}
+.tab_head { height: 32px; line-height: 32px; padding: 0 10px; margin-bottom: 10px;}
+.tab_body { line-height: 24px; margin-bottom: 20px;}
+.tab_body textarea { width:450px; height: 150px; padding: 5px; margin: 0 auto; display: block; font-size: 14px;}
+
+.tab_btn { text-align: center; margin-bottom: 10px;}
+.tab_btn button { 
+    width: 150px; 
+    height: 40px;
+    line-height: 40px;
+    font-size: 18px;
+    border-radius: 5px;
+    background: #2c7ece;
+    padding: 0 10px;
+    _padding: 0 3px;
+    _margin: 0 1px;
+    color: #FFF;
+}
+
+/*-----------------*/
+.message_box { width: 940px; margin: 0 auto; padding-bottom: 20px; border: 1px #CCCCCC solid; background: #f8f6f4;}
+.messBox_head { font-size: 24px; text-align: center; margin: 10px 0;}
+.messBox_body { line-height: 24px; margin-bottom: 10px;}
+.messBox_body h2 { padding-left: 20px; margin-bottom: 10px;}
+.messBox_body textarea { width: 900px; height: 300px; display:block;padding: 5px; margin: 0 auto; font-size: 14px;}
+.messBox_btn { text-align: center; margin-bottom: 10px;}
+.messBox_btn button { 
+    width: 150px; 
+    height: 40px;
+    line-height: 40px;
+    font-size: 18px;
+    border-radius: 5px;
+    background: #2c7ece;
+    padding: 0 10px;
+    _padding: 0 3px;
+    _margin: 0 1px;
+    color: #FFF;
+}
+

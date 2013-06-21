@@ -1,0 +1,48 @@
+<script>
+<% if params[:action] == 'search' %>
+    $(document).ready(function(){
+      $("#users_list .pageTurn a").unbind("click");
+      $("#users_list .pageTurn a").bind("click", function() {
+        var url = this.href;
+        $.ajax({
+          async:true,
+          url:url,
+          dataType:"script",
+          type:"GET",
+          success:function(){
+            // alert(1);
+          },error:function(){
+            // alert("error");
+          }
+        });
+        /* alert(this.href); */
+        return false;
+      });
+    });
+<% end %>
+</script>
+<div class="data_body" id="users_list">
+  <table width="100%" border="0" cellspacing="0" cellpadding="0" class="table">
+    <thead>
+      <tr>
+        <th width="120">用户名</th>
+        <th width="320">用户网址</th>
+        <th width="120">注册日期</th>
+        <th width="120">所在城市  <select name="city_city_id" id="city_city_id"><option value="0">-选择城市-</option>
+            <% @cities.each do |c| %>
+              <option value="<%= c.id %>"><%= c.name %></option>
+            <% end %>
+          </select>
+        </th>
+        <th width="320">操作</th>
+      </tr>
+    </thead>
+    <tbody class ="users_index" id="users_index">
+        <%=render :partial => 'users_index'%>
+    </tbody>
+  </table>
+  <div id="page_div">
+  <%= will_paginate @users,:class=>"pageTurn",:previous_label=>"上一页",:next_label=>"下一页",:name=>"fenye" %>
+  </div>
+</div>
+

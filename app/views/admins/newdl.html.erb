@@ -1,0 +1,34 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8"/>
+    <title>流云后台</title>
+    <link href="/assets/user.css" rel="stylesheet" type="text/css"/>
+    <!--[if IE 6]>
+    <script src="js/DD_belatedPNG_0.0.8a-min.js"></script>
+    <script>
+      DD_belatedPNG.fix('*');
+    </script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class = "tishi"><p id="notice"><%= notice %></p></div>
+    <div class="login">
+      <div class="login_box">
+        <%= form_for :admin, :url => { :action => :admin_login, :controller => :admins } do |f| %>
+          <div class="login_item">
+            <%= f.label :用户名： %>
+            <%= f.text_field :name %>
+          </div>
+          <div class="login_item">
+            <%= f.label :密码： %>
+            <%= f.password_field :password %>
+          </div>
+          <div class="login_btn">
+            <%= f.submit "登录" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </body>
+</html>

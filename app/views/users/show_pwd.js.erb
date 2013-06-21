@@ -1,0 +1,12 @@
+<% if @user %>
+  $("#photos").html('<%= escape_javascript(render :partial => 'photo') %>');
+  $(".mask").hide();
+  $(".password_tab").hide();
+  $("#exchange").unbind();
+<% else %>
+  alert("密码错误");
+  $(".mask").hide();
+  $(".password_tab").hide();
+  $("#exchange").removeAttr("class");
+  $("#public").attr("class","hover");
+<% end %>

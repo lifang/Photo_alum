@@ -1,0 +1,65 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8"/>
+    <title>流云</title>
+    <%= javascript_include_tag "main" %>
+    <%= stylesheet_link_tag "style" %>
+    <!--[if IE 6]>
+    <script src="js/DD_belatedPNG_0.0.8a-min.js"></script>
+    <script>
+      DD_belatedPNG.fix('*');
+    </script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="head">
+      <div class="box">
+        <div class="logo">流云</div>
+        <div class="rainbow"><img src="/assets/rainbow.png"/></div>
+        <div class="h_info">
+          <p><span class="h1">Darcy</span><span>欢迎来到流云相册</span></p>
+          <p><%= @user.url %>&nbsp;&nbsp;|&nbsp;&nbsp;<%=@user.name%></p>
+        </div>
+        <div class="nav">
+          <a href="/users/<%= @user.id %>" class = "<%= @photos[0].status==1 ? "hover" : ""%>" id="public">公开相册</a>
+          <% if session[:photopwd].nil? %>
+          <a href="#" id="exchange" class=<%= @photos[0].status==0 ? "private hover" : "private" %>  >私有相册</a>
+          <%  else %>
+            <%= link_to "私有相册", "/users/show_pwd",:method=> :get ,
+              :remote => "true", "data-type" => "script" ,:id =>"exchange" ,:class=>(@photos[0].status == 1) ? "" : "hover"%>
+          <% end %>
+        </div>
+      </div>
+    </div>
+    <div class="main">
+      <div class="box">
+        <div class="left">
+          <div class="m_mess">
+            <div class="mess_text">
+              <p><span>城市：<%=  @user.city.name  if @user.city%></span></p>
+              <p><span><%= @user.describle %></span></p>
+            </div>
+          </div>
+        </div>
+        <div class="right">
+
+          <div id="photos">
+            <%= render :partial => '/users/photo'%></div>
+        </div>
+      </div>
+    </div>
+    <div class="foot"><p>Copyright © 2013 流云 版权所有</p></div>
+    <div class="mask"></div>
+    <div class="ok_tab" style="display: none;">修改成功！</div>
+    <div class="password_tab" style="display: none;">
+      <span class="close">关闭</span>
+      <%= form_for @user, :url => { :action => :show_pwd, :controller => :users },:method=> :get, :html =>{ :remote => true, 'data-type' => 'script'} do |f| %>
+        <h1>请输入访问密码</h1>
+        <input type="password" name="user[photo_password]" class="password_input"/>
+        <button type="submit"class="btn">确定</button>
+        <input type="hidden" name = "user_id" value ="<%= @user.id %>"></input>
+      <% end %>
+    </div>
+  </body>
+</html>

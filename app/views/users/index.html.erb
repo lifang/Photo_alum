@@ -1,0 +1,67 @@
+
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8"/>
+    <title>流云后台</title>
+    <link href="/assets/user.css" rel="stylesheet" type="text/css"/>
+    <script src="/assets/user.js"></script>
+    <script src="/assets/jQuery-v1.9.0.js"></script>
+    <%= javascript_include_tag "left_1" %>
+    <!--[if IE 6]>
+    <script src="js/DD_belatedPNG_0.0.8a-min.js"></script>
+    <script>
+      DD_belatedPNG.fix('*');
+    </script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="head">
+      <div class="box">
+        <div class="logo">流云后台管理</div>
+        <div class="user_info">你好，<%= @admin.name %>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="/denglu">退出</a></div>
+        <div class="nav">
+          <ul>
+            <li><a  class="hover">用户列表</a></li>
+            <li><a href="messages/send_messaging">短信群发</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="main">
+      <div class="box">
+        <div class="search">       
+            <div class="textInput_div"><label>用户名称：</label><input name="name" id ="name"type="text"/></div>
+            <div class="textInput_div"><label>用户网址：</label><input name="url" id = "url"type="text"/></div>
+            <div class="btn_div">
+              <input type="button" class="btn" onclick="search_users()" value="查询"/>
+            </div>
+          <div class="btn_div">
+            <% if @admin.status == 1 %>
+              <td><input type="button" value="可注册" name="ajax_regester" class="btn" aid = "<%=  @admin.id %>"/></td>
+            <% else %>
+              <td><input type="button" value="不可注册" name="ajax_regester" class="btn" aid = "<%=  @admin.id %>"/></td>
+            <% end %>
+          </div>
+          <div class="clear"></div>
+        </div>
+        <div id="search_user">
+          <%= render :partial => 'search_user' %>
+        </div>
+      </div>
+    </div>
+    <div class="foot"><p>Copyright © 2013 流云 版权所有</p></div>
+    <div class="mask"></div>
+    <div class="tab" style="display:none;">
+      <div class="tab_head"><h2 class="h2">编辑短信</h2><span class="close">关闭</span></div>
+      <%=  form_for :message,:url => { :action => :send_one, :controller => :messages } do |f|%>
+      <div class="tab_body">
+        <input type="text" name="message[content]" class="tab_body"/>
+      </div>
+      <div class="tab_btn">
+        <button type="submit"class="btn">发送</button>
+      </div>
+      <% end %>
+    </div>
+  </body>
+</html>

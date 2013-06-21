@@ -1,0 +1,59 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8"/>
+    <title>流云后台</title>
+    <link href="/assets/user.css" rel="stylesheet" type="text/css"/>
+    <script src="/assets/jQuery-v1.9.0.js"></script>
+    <script src="/assets/user.js"></script>
+    <script src="/assets/My97DatePicker/WdatePicker.js"></script>
+    <!--[if IE 6]>
+    <script src="js/DD_belatedPNG_0.0.8a-min.js"></script>
+    <script>
+      DD_belatedPNG.fix('*');
+    </script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="head">
+      <div class="box">
+        <div class="logo">流云后台管理</div>
+        <div class="user_info">你好，admin&nbsp;&nbsp;|&nbsp;&nbsp;<a href="/denglu">退出</a></div>
+        <div class="nav">
+          <ul>
+            <li><a href="/index">用户列表</a></li>
+            <li><a  class="hover">短信群发</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="main">
+      <div class="box">
+        <div class="search">
+          <%= form_for :user,:url => {:action => :mass_message, :controller => :messages}, :method => :post , :html =>{ :remote => true, 'data-type' => 'script'} do |f| %>
+            <div class="textInput_div"> <label>最近登录时间：</label>
+              <input type="text" name="started_at" id="started_at" value=""class="Wdate" readonly onclick="WdatePicker();"/>&nbsp;&nbsp;至&nbsp;&nbsp;
+              <input type="text" name="ended_at" id="ended_at" value="" class="Wdate" readonly onclick="WdatePicker();"/></div>
+            <div class="textInput_div">
+              <%= f.label :城市： %>
+              <input type="text" name="city" id="city" /> </div>
+            <div class="btn_div"><%=  f.submit '查询',:class => "btn"%></div>
+          <% end %>
+          <div class="clear"></div>
+        </div>
+        <div class="data_body">
+          <div class="message_box">
+            <div id ="user_count">
+              <%= render :partial => 'user_count'%></div>
+            <div class="messBox_body">
+              <h2 class="h2">编辑短信</h2>
+              <textarea name="" cols="" rows=""></textarea>
+            </div>
+            <div class="messBox_btn"><button>发送</button></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="foot"><p>Copyright © 2013 流云 版权所有</p></div>
+  </body>
+</html>

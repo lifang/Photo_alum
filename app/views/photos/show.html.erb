@@ -1,0 +1,111 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8"/>
+    <title>流云</title>
+    <link href="/assets/style.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" type="text/css" href="/assets/jquery.ad-gallery.css"/>
+    <script src="/assets/jQuery-v1.9.0.js"></script>
+    <script src="/assets/main.js"></script>
+    <script type="text/javascript" src="/assets/jquery.ad-gallery.js"></script>
+    <!--[if IE 6]>
+    <script src="js/DD_belatedPNG_0.0.8a-min.js"></script>
+    <script>
+      DD_belatedPNG.fix('*');
+    </script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="head">
+      <div class="box">
+        <div class="logo">流云</div>
+        <div class="rainbow"><img src="/assets/rainbow.png"/></div>
+        <div class="h_info">
+          <p><span class="h1">Darcy</span><span>欢迎来到流云相册</span></p>
+          <p><%= @user.url%>&nbsp;&nbsp;|&nbsp;&nbsp;<%=@user.name%></p>
+        </div>
+        <div class="nav">
+          <a id="public" href="/users/<%= @user.id %>" class=<%= (@status==1) ? 'hover' : ''%> >公开相册</a>
+          <% if session[:photopwd].nil? %>
+          <a href="#" id="exchange" class=<%= (@status==0) ? "private hover" : "private"  %> >私有相册</a>
+          <%  else %>
+            <%= link_to "私有相册", "/photos/replace_bigphotos",:method=> :get ,:id =>"exchange",:class=>(@status == 1) ? "" : "hover" %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+    <div class="main">
+      <div class="box">
+        <div class="left">
+          <div class="m_mess">
+            <div class="mess_text">
+              <p><span>城市：<%=  @user.city.name  if @user.city%></span></p>
+              <p><span><%= @user.describle %></span></p>
+            </div>
+          </div>
+        </div>
+        <div class="right" id ="bigphotos">
+          <!--效果开始-->
+          <div id="container">
+            <div id="gallery" class="ad-gallery">
+              <div class="ad-image-wrapper"> </div>
+              <div class="ad-controls"> </div>
+              <div class="ad-nav">
+                <div class="ad-thumbs">
+                  <ul class="ad-thumb-list">
+                    <% @photos.each do |photo| %>
+                      <li>
+                        <a href = "<%="/uploads/#{photo.user_id}/#{photo.big_photo_name}"%>">
+                          <img title="<%= @user.name%>--上传于：<%=photo.created_at.strftime("%Y-%m-%d %H:%M:%S")%>" alt="" src="<%="/uploads/#{photo.user_id}/#{photo.small_photo_name}" %>" onload="if(this.width>this.height){ if(this.width>100)this.width=100; }else{if(this.height>100) this.height=100;}"/></a>
+                      </li>
+                    <% end %>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="foot">
+      <p>Copyright © 2013 流云 版权所有</p>
+    </div>
+    <div class="password_tab" style="display: none;">
+      <span class="close">关闭</span>
+      <%= form_for @user, :url => { :action => :replace_bigphotos, :controller => :photos },:method => :get do |f| %>
+        <h1>请输入访问密码</h1>
+        <input type="password" name="user[photo_password]" class="password_input"/>
+        <button type="submit"class="btn">确定</button>
+        <input type="hidden" name = "user_id" value ="<%= @user.id %>"></input>
+      <% end %>
+    </div>
+  </body>
+</html>
+<script type="text/javascript">
+  $(function() {
+    var galleries = $('.ad-gallery').adGallery();
+    //配置相册切换特效
+    // slide-hori  滚动切换
+    // slide-vert  上下切换
+    // resize  缩小切换
+    // fade  淡入淡出切换
+    $(function(){galleries[0].settings.effect = "fade"})
+    $('#toggle-slideshow').click(
+    function() {
+      galleries[0].slideshow.toggle();
+      return false;
+    }
+  );
+    $('#toggle-description').click(
+    function() {
+      if(!galleries[0].settings.description_wrapper) {
+        galleries[0].settings.description_wrapper = $('#descriptions');
+      } else {
+        galleries[0].settings.description_wrapper = false;
+      }
+      return false;
+    }
+  );
+  });
+</script>
+

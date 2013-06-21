@@ -1,0 +1,10 @@
+<div class="ad-thumbs">
+  <ul class="ad-thumb-list">
+    <% @photos.each do |photo| %>
+      <li>
+        <a href="<%="/uploads/#{photo.user_id}/#{photo.big_photo_name}"%>">
+          <img alt="图片丢失" src="<%="/uploads/#{photo.user_id}/#{photo.small_photo_name}"%>"/></a>
+      </li>
+    <% end %>
+  </ul>
+</div>

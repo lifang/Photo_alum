@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  big_photo_name: MyString
+  small_photo_name: MyString
+  status: 1
+  user_id: 1
+
+two:
+  big_photo_name: MyString
+  small_photo_name: MyString
+  status: 1
+  user_id: 1

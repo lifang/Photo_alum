@@ -1,0 +1,6 @@
+<% if @users %>
+  $("#users_count").text('<%= @users.count %>')
+<% else %>
+  alert("无相关用户")
+  $("#user_count").html('<%= escape_javascript(render :partial => 'user_count') %>')
+<% end %>

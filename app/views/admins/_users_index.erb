@@ -1,0 +1,21 @@
+
+  <% @users.each do |user| %>
+    <tr>
+      <td><%= user.name %></td>
+      <td><a href ="http://<%= user.url %>"><%= user.url %></a></td>
+      <td><%= user.created_at %></td>
+      <td><%= user.city.name if user.city %></td>
+      <!--<%#*<td><%=link_to '查看',:controller => "users", :action => "checkornot",:id => user.id,:id=>"ajax_load" %></td>%>-->
+      <td>
+        <div class="btn_div">
+          <button class="setMess_btn">发短信</button>
+          <%=link_to '删除',user,confirm:'确认删除', method: :delete ,:class => "btn"%>
+          <% if user.status==1 %>
+            <input type="button" value="可查看"name="ajax_onloads" uid = "<%=  user.id %>" class="btn"/>
+          <% else %>
+            <input type="button" value="不可查看"name="ajax_onloads" uid = "<%=  user.id %>" class ="btn"/>
+          <% end %>
+        </div>
+      </td>
+    </tr>
+  <% end %>
