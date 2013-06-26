@@ -1,5 +1,5 @@
-$(document).ready(function(){
-    $("input[name='ajax_onloads']").click(function(){
+$(document).ready(function(){   //设置是否可查看
+    $(document).on('click',".btn_div input[name='ajax_onloads']",function(){
         var button = $(this);
         var uid = $(this).attr("uid");
         $.ajax({
@@ -24,7 +24,7 @@ $(document).ready(function(){
             }
         })
     })
-    $("input[name='ajax_regester']").click(function(){
+    $("input[name='ajax_regester']").click(function(){    //设置是否可注册
         var button1 =$(this);
         var aid = $(this).attr("uid");
         $.ajax({
@@ -49,7 +49,7 @@ $(document).ready(function(){
             }
         })
     })
-        $("#city_city_id").change(function(){
+        $("#city_city_id").change(function(){   //设置城市查询用户
         var cid = $("#city_city_id").val();
         var name = $("#name").val();
         var url = $("#url").val();
@@ -61,7 +61,7 @@ $(document).ready(function(){
             data : {city_city_id : cid, name : name, url : url}
         })
     });
-    $(document).on('click', '#page_div .pageTurn a', function(){
+    $(document).on('click', '#page_div .pageTurn a', function(){   //分页
         var url = $(this).attr("href");
         $.ajax({
             type : 'get',
@@ -71,7 +71,7 @@ $(document).ready(function(){
         return false;
     })
 })
-function search_users(){
+function search_users(){   // 搜索
     var name = $("#name").val();
     var url = $("#url").val();
     $.ajax({
