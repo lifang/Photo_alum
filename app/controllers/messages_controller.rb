@@ -14,6 +14,7 @@ class MessagesController < ApplicationController
 #  对单个用户发送消息推送功能
   def send_one
     id = params[:id]
+    p id
     user = User.find(id)
     messages = params[:message][:content].to_s
     if user.phone_type && user.phone_type==0
@@ -38,6 +39,7 @@ class MessagesController < ApplicationController
       map.store("txt", messages)
       map.store("platform", "android")
       puts (Net::HTTP.post_form(URI.parse("http://api.jpush.cn:8800/sendmsg/v2/notification"), map))
+      render :nothing => true
     end
 
     #    

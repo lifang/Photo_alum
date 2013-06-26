@@ -1,3 +1,4 @@
+#encoding:utf-8
 class PhotosController < ApplicationController
   # GET /photos
   # GET /photos.json
@@ -60,7 +61,7 @@ class PhotosController < ApplicationController
   def download
     user_id = params[:id]
     status = params[:status]
-    photos = Photo.where(["user_id = ?",user_id]).where(["status = ?",status])
+    photos = Photo.where(["user_id = ?",user_id]).where(["status = ?",status]).order("created_at DESC")
     if photos
       render :json => photos
     else

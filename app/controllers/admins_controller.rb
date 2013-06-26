@@ -1,3 +1,4 @@
+#encoding:utf-8
 class AdminsController < ApplicationController
   #管理员登录
   def admin_denglu
