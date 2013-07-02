@@ -15,7 +15,7 @@ development:
   database: photo_alum
   pool: 5
   username: root
-  password: 'comdo2012'
+  password: '1234'
   host: 127.0.0.1
 
 # Warning: The database defined as "test" will be erased and

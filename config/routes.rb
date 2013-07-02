@@ -7,7 +7,7 @@ PhotoAlum::Application.routes.draw do
       get 'delete'
       get 'send_messaging','read_messages'
       post 'mass_message'
-      post 'send_one'
+      post 'send_one',"send_many_message"
     end
     member do
     end
@@ -33,14 +33,13 @@ PhotoAlum::Application.routes.draw do
   resources :users do
     collection do
       get 'user_signin' ,'register','forget_pwd','change_pwd','album_pwd',
-        'change_describle','change_email','change_city','destroy_user','search','show_pwd'
+        'change_describle','change_email','change_city','destroy_user','search','show_pwd','users_citys'
       post 'show'
     end
   end
   match '/index' => 'users#index'
   # The priority is based upon order of creation:
   # first created -> highest priority.
-
   # Sample of regular route:
   #   match 'products/:id' => 'catalog#view'
   # Keep in mind you can assign values other than :controller and :action

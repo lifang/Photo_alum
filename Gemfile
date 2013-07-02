@@ -18,6 +18,7 @@ gem 'jquery-rails', '~> 2.1.0'
 gem 'mini_magick','3.4.0'
 gem 'will_paginate', '3.0.3'
 gem 'apns'
+gem 'fast-aes'
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 
