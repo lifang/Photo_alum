@@ -18,15 +18,15 @@
         <div class="logo">流云</div>
         <div class="rainbow"><img src="/assets/rainbow.png"/></div>
         <div class="h_info">
-          <p><span class="h1">Darcy</span><span>欢迎来到流云相册</span></p>
+          <p><span class="h1">Darcy</span><span>欢迎来到流云</span></p>
           <p><%= @user.url %>&nbsp;&nbsp;|&nbsp;&nbsp;<%=@user.name%></p>
         </div>
         <div class="nav">
-          <a href="/users/<%= @user.id %>"  id="public" class=<% if @photos[0] %><%= @photos[0].status==1 ? "hover" : ""%><% else %>"hover"<%  end %>>公开相册</a>
+          <a href="/users/<%= @user.id %>"  id="public" class=<% if @photos[0] %><%= @photos[0].status==1 ? "hover" : ""%><% else %>"hover"<%  end %>>公开图片</a>
           <% if session[:photopwd].nil? %>
-          <a href="#" id="exchange" class=<% if @photos[0] %><%= @photos[0].status==0 ? "private hover" : "private" %><% else %>"private"<% end %> >私有相册</a>
+          <a href="#" id="exchange" class=<% if @photos[0] %><%= @photos[0].status==0 ? "private hover" : "private" %><% else %>"private"<% end %> >私有图片</a>
           <%  else %>
-            <%= link_to "私有相册", "/users/show_pwd",:method=> :get ,
+            <%= link_to "私有图片", "/users/show_pwd",:method=> :get ,
               :remote => "true", "data-type" => "script" ,:id =>"exchange" ,:class=> (@photos[0].status == 1) ? "" : "hover"if @photos[0] %>
           <% end %>
         </div>
@@ -37,7 +37,7 @@
         <div class="left">
           <div class="m_mess">
             <div class="mess_text">
-              <p><span>城市：<%=  @user.city.name  if @user.city%></span></p>
+              <p class="address"><span>城市：</span><%=  @user.city.name  if @user.city%></p>
               <p><span><%= @user.describle %></span></p>
             </div>
           </div>

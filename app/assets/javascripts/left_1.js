@@ -74,12 +74,11 @@ $(document).ready(function(){   //设置是否可查看
 function search_users(){   // 搜索
     var name = $("#name").val();
     var url = $("#url").val();
+    var cid = $("#city_city_id").val();
     $.ajax({
         url:"/users",
         type: "get",
         dataType: "script",
-        data:{
-            name : name, url : url
-        }
+        data : {city_city_id : cid, name : name, url : url}
     })
 }

@@ -7,7 +7,7 @@ class PhotosController < ApplicationController
   require "rubygems"
   require "mini_magick"
   def upload
-    begin
+#    begin
 #      上传原图片
       user_id = params[:id]
       user = User.find_by_id(user_id)
@@ -30,11 +30,16 @@ class PhotosController < ApplicationController
       img = MiniMagick::Image.open file_path,"rb"
       #图片添加水印
       my_text = user.name.to_s
+      p my_text
       img.combine_options do |c|
         c.gravity 'SouthWest'
         c.pointsize '50'
+        c.font ("fonts/simhei.ttf")
+        c.encoding "utf-8"
         c.fill"white"
-        c.draw "text 10,0 '#{my_text}'"
+        c.draw "text 10,0 'hellow'"
+        p 111111111111
+        p "hellow"
       end
       img.write(file_path)
 
@@ -47,15 +52,15 @@ class PhotosController < ApplicationController
         img1.run_command("convert #{file_path} -resize #{resize}x#{resize} #{new_file}")
         Photo.create(:big_photo_name => newfilename,:small_photo_name =>resize_file_name,:user_id => user_id,:status => status,:describe => describe)
       end
-      photo=Photo.find_by_big_photo_name(newfilename)
+      photo = Photo.find_by_big_photo_name(newfilename)
       if photo
         render :json => photo
       else
         render :json => "error"
       end
-    rescue
-      render :json =>'error'
-    end
+#    rescue
+#      render :json =>'error'
+#    end
   end
   # 手机端获取图片
   def download

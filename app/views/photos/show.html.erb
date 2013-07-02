@@ -21,15 +21,15 @@
         <div class="logo">流云</div>
         <div class="rainbow"><img src="/assets/rainbow.png"/></div>
         <div class="h_info">
-          <p><span class="h1">Darcy</span><span>欢迎来到流云相册</span></p>
+          <p><span class="h1">Darcy</span><span>欢迎来到流云</span></p>
           <p><%= @user.url%>&nbsp;&nbsp;|&nbsp;&nbsp;<%=@user.name%></p>
         </div>
         <div class="nav">
-          <a id="public" href="/users/<%= @user.id %>" class=<%= (@status==1) ? 'hover' : ''%> >公开相册</a>
+          <a id="public" href="/users/<%= @user.id %>" class=<%= (@status==1) ? 'hover' : ''%> >公开图片</a>
           <% if session[:photopwd].nil? %>
-          <a href="#" id="exchange" class=<%= (@status==0) ? "private hover" : "private"  %> >私有相册</a>
+          <a href="#" id="exchange" class=<%= (@status==0) ? "private hover" : "private"  %> >私有图片</a>
           <%  else %>
-            <%= link_to "私有相册", "/photos/replace_bigphotos",:method=> :get ,:id =>"exchange",:class=>(@status == 1) ? "" : "hover" %>
+            <%= link_to "私有图片", "/photos/replace_bigphotos",:method=> :get ,:id =>"exchange",:class=>(@status == 1) ? "" : "hover" %>
           <% end %>
         </div>
       </div>

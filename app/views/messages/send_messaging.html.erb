@@ -22,7 +22,7 @@
         <div class="nav">
           <ul>
             <li><a href="/index">用户列表</a></li>
-            <li><a  class="hover">短信群发</a></li>
+            <li><a  class="hover">消息群发</a></li>
           </ul>
         </div>
       </div>
@@ -47,9 +47,9 @@
               <%= render :partial => 'user_count'%></div>
             <div class="messBox_body">
               <h2 class="h2">编辑短信</h2>
-              <textarea name="" cols="" rows=""></textarea>
+              <textarea name="content" id="content" cols="" rows=""></textarea>
             </div>
-            <div class="messBox_btn"><button>发送</button></div>
+            <div class="messBox_btn"><button onclick="qunfa()">发送</button></div>
           </div>
         </div>
       </div>
