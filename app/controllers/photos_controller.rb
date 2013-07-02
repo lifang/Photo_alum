@@ -1,3 +1,4 @@
+#encoding: utf-8
 class PhotosController < ApplicationController
   # GET /photos
   # GET /photos.json

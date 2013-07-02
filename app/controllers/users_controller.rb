@@ -1,12 +1,10 @@
 # encoding utf-8
-require 'will_paginate/array'
 class UsersController < ApplicationController
-  # GET /users
-  # GET /users.json
+require 'will_paginate/array'
   before_filter :correct_user, :only =>[:index]
   def correct_user
     if session[:currentuser].nil?
-      redirect_to denglu_path, :notice =>"请先登录"
+      redirect_to denglu_path, :notice =>"sign in"
     end
   end
   def index
