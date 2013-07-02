@@ -52,14 +52,14 @@
     </div>
     <div class="foot"><p>Copyright © 2013 流云 版权所有</p></div>
     <div class="mask"></div>
-    <div class="tab" style="display:none;">
+    <div class="tab" style="display:none;" id="send_msg_div">
       <div class="tab_head"><h2 class="h2">编辑短信</h2><span class="close">关闭</span></div>
-      <%=  form_for :message,:url => { :action => :send_one, :controller => :messages } do |f|%>
+      <%=  form_for :message,:url => { :action => :send_one, :controller => :messages },:method=> :post, :html =>{ :remote => true, 'data-type' => 'script'}  do |f|%>
       <div class="tab_body">
-        <input type="text" name="message[content]" class="tab_body"/>
+        <input type="text" name="message[content]" class="tab_body" id="message_content"/>
       </div>
       <div class="tab_btn">
-        <button type="submit"class="btn">发送</button>
+        <button type="submit"class="btn" onclick="return yincang()" id="yincangyu">发送</button>
       </div>
       <% end %>
     </div>

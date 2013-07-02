@@ -45,15 +45,14 @@ class PhotosController < ApplicationController
         new_file = file_path.split(".")[0]+"_"+resize.to_s+"."+file_path.split(".").reverse[0]
         resize_file_name = timeext+"_100."+fileext
         img1.run_command("convert #{file_path} -resize #{resize}x#{resize} #{new_file}")
-        photo = Photo.create(:big_photo_name => newfilename,:small_photo_name =>resize_file_name,:user_id => user_id,:status => status,:describe => describe)
-        if photo
-          render :json => photo
-        else
-          render :json => "error"
-        end
-
+        Photo.create(:big_photo_name => newfilename,:small_photo_name =>resize_file_name,:user_id => user_id,:status => status,:describe => describe)
       end
-      
+      photo=Photo.find_by_big_photo_name(newfilename)
+      if photo
+        render :json => photo
+      else
+        render :json => "error"
+      end
     rescue
       render :json =>'error'
     end
@@ -62,7 +61,7 @@ class PhotosController < ApplicationController
   def download
     user_id = params[:id]
     status = params[:status]
-    photos = Photo.where(["user_id = ?",user_id]).where(["status = ?",status])
+    photos = Photo.where(["user_id = ?",user_id]).where(["status = ?",status]).order("created_at DESC")
     if photos
       render :json => photos
     else
