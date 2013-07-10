@@ -15,9 +15,12 @@ PhotoAlum::Application.routes.draw do
 
   resources :admins do
     collection do
-      get 'checkornot'
+      get 'checkornot','advert','exit_admins'
       get 'registerornot'
       get 'currect_user','cities_change'
+      post 'advert_show'
+    end
+    member do
     end
   end
   match 'admins/admin_login' => 'admins#admin_login'
@@ -25,10 +28,11 @@ PhotoAlum::Application.routes.draw do
   
   resources :photos do
     collection do
-      get 'download','delete',"replace_big_phont",'replace_bigphotos'
-      post 'upload'
+      get 'download','delete',"replace_big_phont",'friends_pwd'
+      post 'upload','replace_bigphotos'
     end
   end
+  match '/replace_bigphotos' => 'photos#replace_bigphotos'
 
   resources :users do
     collection do

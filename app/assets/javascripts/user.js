@@ -59,6 +59,9 @@ function qunfa(){ //群发功能
                 ended_at : ended_at ,
                 city : city
             },
+            beforeSend: function(xhr) {
+                xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
+            },
             success:function(data){
                 if(data.con_exist == 1){
                     if(data.status ==1){
@@ -73,5 +76,35 @@ function qunfa(){ //群发功能
                 }
             }
         })
+    }
+}
+//  发布广告
+function advert_fabu(){
+    var content = $("#advert_content").val();
+     if (content == ''){
+        alert("广告内容不能为空");
+        return false;
+    }
+    else{
+        $.ajax({
+            type : 'POST',
+            dataType : 'json',
+            url:"/admins/advert_show",
+            data : {
+            content : content
+            },
+            beforeSend: function(xhr) {
+                xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
+            },
+            success:function(data){
+                if(data.status){
+                    alert("广告已发布");
+                }
+                else{
+                    alert("广告发布失败");
+                }
+            }
+        })
+        return true;
     }
 }

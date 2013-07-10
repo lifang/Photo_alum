@@ -9,11 +9,16 @@ class AdminsController < ApplicationController
       redirect_to index_path
     end
   end
+  #  退出登录
+  def exit_admins
+    session[:currentuser] = nil
+    render :newdl
+  end
+
   def admin_login
     name = params[:admin][:name]
     password = params[:admin][:password]
     @admin = Admin.find_by_name_and_password(name,password)
-    session[:currentuser] = nil
     if @admin
       session[:currentuser] = @admin.id
       redirect_to index_path
@@ -59,5 +64,20 @@ class AdminsController < ApplicationController
   def cities_change
     city_id = params[:cid]
     @users = User.find_all_by_city_id(city_id)
+  end
+  #  发布广告
+  def advert_show
+    p session[:currentuser]
+    content = params[:content].to_s
+    ads = Ads.where(:id => 1)
+    if ads && !ads.empty?
+      if ads.update_all(:content => content)
+        render :json => {:status => 1}
+      end
+    else
+      if ads.create(:id => 1, :content => content)
+        render :json => {:status => 1}
+      end
+    end
   end
 end

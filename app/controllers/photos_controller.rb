@@ -7,60 +7,61 @@ class PhotosController < ApplicationController
   require "rubygems"
   require "mini_magick"
   def upload
-#    begin
-#      上传原图片
-      user_id = params[:id]
-      user = User.find_by_id(user_id)
-      status = params[:status]
-      describe = params[:describe]
-      FileUtils.mkdir_p "#{File.expand_path(Rails.root)}/public/uploads/#{user_id}" if !(File.exist?("#{File.expand_path(Rails.root)}/public/uploads/#{user_id}"))
-      image = params[:img]
-      filename = image.original_filename
-      fileext = File.basename(filename).split(".")[1]
-      timeext = user_id.to_s+Time.now.strftime("%Y%m%dT%H%M%S")
-      photo_big_name = Photo.find_by_big_photo_name(timeext+"."+fileext)
-      if photo_big_name
-        timeext = timeext + "1"
-      end
-      newfilename = timeext+"."+fileext
-      File.open("#{Rails.root}/public/uploads/#{user_id}/#{newfilename}","wb") {
-        |f| f.write(image.read)
-      }
-      file_path = "#{Rails.root}/public/uploads/#{user_id}/#{newfilename}"   #获取到路径
-      img = MiniMagick::Image.open file_path,"rb"
-      #图片添加水印
-      my_text = user.name.to_s
-      p my_text
-      img.combine_options do |c|
-        c.gravity 'SouthWest'
-        c.pointsize '50'
-        c.font ("fonts/simhei.ttf")
-        c.encoding "utf-8"
-        c.fill"white"
-        c.draw "text 10,0 'hellow'"
-        p 111111111111
-        p "hellow"
-      end
-      img.write(file_path)
+    #    begin
+    #      上传原图片
+    user_id = params[:id]
+    user = User.find_by_id(user_id)
+    status = params[:status]
+    describe = params[:describe]
+    FileUtils.mkdir_p "#{File.expand_path(Rails.root)}/public/uploads/#{user_id}" if !(File.exist?("#{File.expand_path(Rails.root)}/public/uploads/#{user_id}"))
+    image = params[:img]
+    filename = image.original_filename
+    fileext = File.basename(filename).split(".")[1]
+    timeext = user_id.to_s+Time.now.strftime("%Y%m%dT%H%M%S")
+    photo_big_name = Photo.find_by_big_photo_name(timeext+"."+fileext)
+    if photo_big_name
+      timeext = timeext + "1"
+    end
+    newfilename = timeext+"."+fileext
+    File.open("#{Rails.root}/public/uploads/#{user_id}/#{newfilename}","wb") {
+      |f| f.write(image.read)
+    }
+    file_path = "#{Rails.root}/public/uploads/#{user_id}/#{newfilename}"   #获取到路径
+    img = MiniMagick::Image.open file_path,"rb"
+    #图片添加水印
+    my_text = user.name.to_s
 
-      img1 = MiniMagick::Image.open file_path,"rb"
-      #    缩小图片 上传进服务器中
-      Photo::PHOTO_SIZE.each do |size|
-        resize = size>img1["width"] ? img1["width"] :size
-        new_file = file_path.split(".")[0]+"_"+resize.to_s+"."+file_path.split(".").reverse[0]
-        resize_file_name = timeext+"_100."+fileext
-        img1.run_command("convert #{file_path} -resize #{resize}x#{resize} #{new_file}")
-        Photo.create(:big_photo_name => newfilename,:small_photo_name =>resize_file_name,:user_id => user_id,:status => status,:describe => describe)
-      end
-      photo = Photo.find_by_big_photo_name(newfilename)
-      if photo
-        render :json => photo
-      else
-        render :json => "error"
-      end
-#    rescue
-#      render :json =>'error'
-#    end
+    wdh = img["width"]
+    het = img["height"]
+    px = wdh>het ? het/10 : wdh/10
+    p my_text
+    img.combine_options do |c|
+      c.gravity 'SouthWest'
+      c.pointsize "#{px}"
+      c.font ("fonts/simhei.ttf")
+      c.encoding "utf-8"
+      c.fill"white"
+      c.draw "text 10,0 'hellow'"
+    end
+    img.write(file_path)
+    img1 = MiniMagick::Image.open file_path,"rb"
+    #    缩小图片 上传进服务器中
+    Photo::PHOTO_SIZE.each do |size|
+      resize = size>img1["width"] ? img1["width"] :size
+      new_file = file_path.split(".")[0]+"_"+resize.to_s+"."+file_path.split(".").reverse[0]
+      resize_file_name = timeext+"_200."+fileext
+      img1.run_command("convert #{file_path} -resize #{resize}x#{resize} #{new_file}")
+      Photo.create(:big_photo_name => newfilename,:small_photo_name =>resize_file_name,:user_id => user_id,:status => status,:describe => describe)
+    end
+    photo = Photo.find_by_big_photo_name(newfilename)
+    if photo
+      render :json => photo
+    else
+      render :json => "error"
+    end
+    #    rescue
+    #      render :json =>'error'
+    #    end
   end
   # 手机端获取图片
   def download
@@ -103,10 +104,8 @@ class PhotosController < ApplicationController
       @photos = Photo.find_by_sql("select * from photos where user_id = #{user_id} and status =0")
     end
     @status = status
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @photo }
-    end
+    @ads = Ads.find(1)
+    render :layout => nil
   end
   def replace_big_photo
     pid = prams[:photo_id].to_i
@@ -126,13 +125,25 @@ class PhotosController < ApplicationController
       user_id = params[:user_id]
     end
     @user = User.find_by_photo_password_and_id(@photo_pwd,user_id)
-    @photos = @user.photos.where(:status => 0).paginate(:page => params[:page] ||= 1, :per_page => User::PER_PAGE_PHOTO)  if @user
     if @user
       session[:photopwd] = @photo_pwd
+      @photos = @user.photos.where(:status => 0).paginate(:page => params[:page] ||= 1, :per_page => User::PER_PAGE_PHOTO)
+      if @photos
+        @jackchen = 1
+        @page = params[:page]||1
+        @ads = Ads.find(1)
+        render "/users/show", :layout => false
+      end
     end
-    @page = params[:page]||1
-    if @photos
-      render "/users/show"
+  end
+  def friends_pwd
+    id = params[:id]
+    pwd = params[:photo_pwd]
+    user = User.find_by_id_and_photo_password(id,pwd)
+    if user
+      render :json => 'success'
+    else
+      render :json => 'error'
     end
   end
 end

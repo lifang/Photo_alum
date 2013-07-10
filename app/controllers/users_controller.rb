@@ -3,12 +3,14 @@ require 'will_paginate/array'
 class UsersController < ApplicationController
   # GET /users
   # GET /users.json
+  layout "application", :except => "show"
   before_filter :correct_user, :only =>[:index]
   def correct_user
     if session[:currentuser].nil?
       redirect_to denglu_path, :notice =>"请先登录"
     end
   end
+#  获取同城用户
   def users_citys
     city_name = params[:name]
     city = City.find_by_name(city_name)
@@ -219,6 +221,11 @@ class UsersController < ApplicationController
     #    photo_pwd = show_pwd
     @photos = Photo.find_by_sql("select * from photos where user_id = '#{user_id}' and status = 1").paginate(:page => params[:page] ||= 1, :per_page => User::PER_PAGE_PHOTO)
     @page = params[:page]||1
+    @ads = Ads.find(1)
+    @pub_pho = 1
+
+     p @pub_pho
+    render :layout => nil
   end
   def show_pwd
     if session[:photopwd]
@@ -234,6 +241,12 @@ class UsersController < ApplicationController
       session[:photopwd] = @photo_pwd
     end
     @page = params[:page]||1
+    @ads = Ads.find(1)
+    respond_to do |format|
+      format.html # index.html.erb
+      format.js
+    end
+
   end
   def destroy
     @user = User.find(params[:id])

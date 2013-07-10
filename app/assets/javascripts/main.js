@@ -31,32 +31,32 @@ $(function(){
 
 //私有相册输入密码弹出层
 $(function(){
-	var doc_width = $(document).width();
-	var doc_height = $(document).height();
-	var layer_height = $(".password_tab").height();
-	var layer_width = $(".password_tab").width();
-	$(".private").bind("click",function(){
-		$(this).removeClass("private").addClass("hover").siblings().removeClass("hover");
-		$(".mask").css("display","block");
-		$(".mask").css("height",doc_height);
-		$(".password_tab").show();
-		$(".password_tab").css('top',(doc_height-document.body.scrollTop-layer_height)/2);
-		$(".password_tab").css('left',(doc_width-layer_width)/2);
-	})
-	$(".close").click(function(){
-		$(".mask").hide();
-		$(".password_tab").hide();
-	})
-        $("#exchange").one("click",function(){
-            $(this).removeClass("exchange").addClass("hover").siblings().removeClass("hover");
-        })
-	$("#public").one("click",function(){
-		$(this).removeClass("public").addClass("hover").siblings().removeClass("hover");
-	})
+    var doc_width = $(document).width();
+    var doc_height = $(document).height();
+    var layer_height = $(".password_tab").height();
+    var layer_width = $(".password_tab").width();
+    $(".private").bind("click",function(){
+        $(this).removeClass("private").addClass("hover").siblings().removeClass("hover");
+        $(".mask").css("display","block");
+        $(".mask").css("height",doc_height);
+        $(".password_tab").show();
+        $(".password_tab").css('top',(doc_height-document.body.scrollTop-layer_height)/2);
+        $(".password_tab").css('left',(doc_width-layer_width)/2);
+    })
+    $(".close").click(function(){
+        $(".mask").hide();
+        $(".password_tab").hide();
+        $("#public").removeClass("public").addClass("hover").siblings().removeClass("hover");
+        $("#exchange").removeClass("exchange").removeClass("hover");
+    })
+    $("#exchange").one("click",function(){
+        $(this).removeClass("exchange").addClass("hover").siblings().removeClass("hover");
+    })
+    $("#public").one("click",function(){
+        $(this).removeClass("public").addClass("hover").siblings().removeClass("hover");
+    })
 
 })
-
-
 //修改个人信息
 $(function(){
     var aa=false;
@@ -74,7 +74,6 @@ $(function(){
         }
     });
 })
-
 //展示图片手表经过图片显示介绍文字
 $(function(){
     $(".showMiddle").mouseover(function(){
@@ -84,13 +83,11 @@ $(function(){
         $(this).find(".showText").hide();
     })
 })
-
 //scrollBox的长度
 $(function(){
     var sbWidth = $(".scrollBox li").length*180;
     $(".scrollBox ul").css("width",sbWidth);
 })
-
 //scrollBox小图点击替换大图效果
 $(function(){
     $('.scrollBox > ul > li img').click(function(){
@@ -108,7 +105,6 @@ $(function(){
     //alert(o);
     })
 })
-
 //showBox图片左右点击移动
 $(function(){
     var page = 1;
@@ -121,9 +117,7 @@ $(function(){
         var small_width = $smallImg.width();
         var len = $pic_show.find('li').length;
         var page_count = Math.ceil(len/i);
-		
         if(!$pic_show.is(':animated')){
-			
             if(page == page_count){
                 $pic_show.animate({
                     left:'0px'
@@ -133,7 +127,7 @@ $(function(){
             }else{
                 $pic_show.animate({
                     left:'-='+small_width
-                    },'slow');
+                },'slow');
                 page++;
             }
         }
@@ -145,11 +139,7 @@ $(function(){
         var leftNum =Math.abs(divLeft/imgWidth);
         $('div.scrollBox > ul > li').eq(leftNum+1).addClass("sc_active").siblings().removeClass("sc_active");
     //var index = $('div.tab_ul li').index(this);
-		
-		
-		
     })
-	
 	
     $('span.prev').click(function(){
         //alert(0)
@@ -161,29 +151,23 @@ $(function(){
         var page_count = Math.ceil(len/i);
 		
         if(!$pic_show.is(':animated')){
-			
             if(page == 1){
                 $pic_show.animate({
                     left:'-='+small_width*(page_count-1)
-                    },'slow');
+                },'slow');
                 page = page_count;
-				
             }else{
                 $pic_show.animate({
                     left:'+='+small_width
-                    },'slow');
+                },'slow');
                 page--;
             }
         }
-		
         ////
         var imgWidth = $(".showPic ul li").width();
         var divLeft = parseInt($(".showPic ul").css("left"));
-		
         //alert(divLeft)
         var leftNum =Math.abs(divLeft/imgWidth);
         $('div.scrollBox > ul > li').eq(leftNum-1).addClass("sc_active").siblings().removeClass("sc_active");
-		
     })
-	
 })

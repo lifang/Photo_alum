@@ -41,7 +41,7 @@ img { border: none;}
 .main { background: url(../assets/m_bg.jpg) repeat; overflow: hidden; padding: 20px 0;}
 .left { width: 240px; float: left;}
 .right { width:740px; float: left; margin-left:10px; padding-left: 10px; display:inline;}
-
+.ad { margin-top: 10px;}
 .m_mess { 
     width:230px; 
     border:3px #d7dde3 solid;
@@ -148,7 +148,7 @@ img { border: none;}
     height: 100%;
     display: none;
     position: absolute;
-    z-index: 10;
+    z-index: 1000;
     top: 0;
     left: 0;
 }
@@ -174,6 +174,7 @@ img { border: none;}
     position:absolute;
     box-shadow: 2px 2px 2px rgba(0,0,0,0.5);
     border-radius: 5px;
+    z-index:1001;
 }
 .password_tab h1 { 
     font-size: 28px; 

@@ -27,9 +27,9 @@
         <div class="nav">
           <a id="public" href="/users/<%= @user.id %>" class=<%= (@status==1) ? 'hover' : ''%> >公开图片</a>
           <% if session[:photopwd].nil? %>
-          <a href="#" id="exchange" class=<%= (@status==0) ? "private hover" : "private"  %> >私有图片</a>
+            <a href="#" id="exchange" class=<%= (@status==0) ? "private hover" : "private"  %> >私有图片</a>
           <%  else %>
-            <%= link_to "私有图片", "/photos/replace_bigphotos",:method=> :get ,:id =>"exchange",:class=>(@status == 1) ? "" : "hover" %>
+            <%= link_to "私有图片",'/replace_bigphotos',:id =>"exchange",:class=>((@status == 1) ? "" : "hover") %>
           <% end %>
         </div>
       </div>
@@ -43,6 +43,7 @@
               <p><span><%= @user.describle %></span></p>
             </div>
           </div>
+          <div class="ad"><%=@ads.content.html_safe if @ads.content%></div>
         </div>
         <div class="right" id ="bigphotos">
           <!--效果开始-->
@@ -56,7 +57,7 @@
                     <% @photos.each do |photo| %>
                       <li>
                         <a href = "<%="/uploads/#{photo.user_id}/#{photo.big_photo_name}"%>">
-                          <img title="<%= @user.name%>--上传于：<%=photo.created_at.strftime("%Y-%m-%d %H:%M:%S")%>" alt="" src="<%="/uploads/#{photo.user_id}/#{photo.small_photo_name}" %>" onload="if(this.width>this.height){ if(this.width>100)this.width=100; }else{if(this.height>100) this.height=100;}"/></a>
+                          <img title="<%= @user.name%>--上传于：<%=photo.created_at.strftime("%Y-%m-%d %H:%M:%S")%>" alt="" src="<%="/uploads/#{photo.user_id}/#{photo.small_photo_name}" %>" onload="if(this.width>this.height){ if(this.width!=100)this.width=100; }else{if(this.height!=100) this.height=100;}"/></a>
                       </li>
                     <% end %>
                   </ul>
@@ -70,13 +71,14 @@
     <div class="foot">
       <p>Copyright © 2013 流云 版权所有</p>
     </div>
+    <div class="mask"></div>
     <div class="password_tab" style="display: none;">
       <span class="close">关闭</span>
-      <%= form_for @user, :url => { :action => :replace_bigphotos, :controller => :photos },:method => :get do |f| %>
+      <%= form_for @user, :url => { :action => :replace_bigphotos, :controller => :photos },:method => :post do |f| %>
         <h1>请输入访问密码</h1>
         <input type="password" name="user[photo_password]" class="password_input"/>
-        <button type="submit"class="btn">确定</button>
         <input type="hidden" name = "user_id" value ="<%= @user.id %>"></input>
+        <button type="submit"class="btn">确定</button>
       <% end %>
     </div>
   </body>

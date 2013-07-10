@@ -42,6 +42,7 @@ GEM
     execjs (1.4.0)
       multi_json (~> 1.0)
     fast-aes (0.1.1)
+    gem_plugin (0.2.3)
     hike (1.2.2)
     i18n (0.6.4)
     journey (1.0.4)
@@ -56,6 +57,8 @@ GEM
     mime-types (1.23)
     mini_magick (3.4)
       subexec (~> 0.2.1)
+    mongrel (1.2.0.pre2-x86-mingw32)
+      gem_plugin (~> 0.2.3)
     multi_json (1.7.4)
     mysql2 (0.3.11)
     mysql2 (0.3.11-x86-mingw32)
@@ -115,6 +118,7 @@ DEPENDENCIES
   fast-aes
   jquery-rails (~> 2.1.0)
   mini_magick (= 3.4.0)
+  mongrel (~> 1.2.0.pre2)
   mysql2
   rails (= 3.2.1)
   sass-rails (~> 3.2.3)

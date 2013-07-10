@@ -3,8 +3,11 @@
   <head>
     <meta charset="utf-8"/>
     <title>流云</title>
-    <%= javascript_include_tag "main" %>
-    <%= stylesheet_link_tag "style" %>
+    <%= javascript_include_tag "application" %>
+    <%= csrf_meta_tags %>
+    <link href="/assets/style.css" rel="stylesheet" type="text/css"/>
+    <script src="/assets/jQuery-v1.9.0.js"></script>
+    <script src="/assets/main.js"></script>
     <!--[if IE 6]>
     <script src="js/DD_belatedPNG_0.0.8a-min.js"></script>
     <script>
@@ -22,12 +25,16 @@
           <p><%= @user.url %>&nbsp;&nbsp;|&nbsp;&nbsp;<%=@user.name%></p>
         </div>
         <div class="nav">
-          <a href="/users/<%= @user.id %>"  id="public" class=<% if @photos[0] %><%= @photos[0].status==1 ? "hover" : ""%><% else %>"hover"<%  end %>>公开图片</a>
+          <a href="/users/<%= @user.id %>"  id="public" class=<% if @photos[0] %><%= @photos[0].status==1 ? "hover" : ""%><% else %><%= @pub_pho ? "hover" : ""%><% end %> >公开图片</a>
           <% if session[:photopwd].nil? %>
-          <a href="#" id="exchange" class=<% if @photos[0] %><%= @photos[0].status==0 ? "private hover" : "private" %><% else %>"private"<% end %> >私有图片</a>
+            <a href="#" id="exchange" class=<% if @photos[0] %>
+              <%= @photos[0].status==0 ? "private hover" : "private" %>
+            <% else %>
+              <%=  @jackchen ? "private hover" : "private" %>
+               <% end %> >私有图片</a>
+
           <%  else %>
-            <%= link_to "私有图片", "/users/show_pwd",:method=> :get ,
-              :remote => "true", "data-type" => "script" ,:id =>"exchange" ,:class=> (@photos[0].status == 1) ? "" : "hover"if @photos[0] %>
+            <%= link_to "私有图片", "/users/show_pwd",:method=> :get , :remote => "true", "data-type" => "script" ,:id =>"exchange" ,:class => (@photos[0] ? ((@photos[0].status == 1) ? "" : "hover") : (@jackchen ? "hover" : "") ) %>
           <% end %>
         </div>
       </div>
@@ -41,9 +48,9 @@
               <p><span><%= @user.describle %></span></p>
             </div>
           </div>
+          <div class="ad"><%=@ads.content.html_safe if @ads.content%></div>
         </div>
         <div class="right">
-
           <div id="photos">
             <%= render :partial => '/users/photo'%></div>
         </div>
