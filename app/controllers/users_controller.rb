@@ -10,24 +10,35 @@ class UsersController < ApplicationController
       redirect_to denglu_path, :notice =>"请先登录"
     end
   end
-#  获取同城用户
+  #  获取同城用户
   def users_citys
     city_name = params[:name]
     city = City.find_by_name(city_name)
+    page = params[:page]
     if city
       city_id = city.id
-      user = User.find_by_sql("select users.id, users.describle describle,c.name name,p.small_photo_name small_photo
+      users = User.find_by_sql("select users.id, users.describle describle,c.name name,p.small_photo_name small_photo
                       from users left join cities c on users.city_id = c.id
                       left join photos p on users.id = p.user_id
                       where c.id =#{city_id} and p.status = 1 group by users.id")
-      if user
-        render :json => user
+      user = User.find_by_sql("select users.id, users.describle describle,c.name name,p.small_photo_name small_photo
+                      from users left join cities c on users.city_id = c.id
+                      left join photos p on users.id = p.user_id
+                      where c.id =#{city_id} and p.status = 1 group by users.id").paginate(:page =>page , :per_page =>User::COMMEN_USER)
+      count_user = users.count
+      page_count = count_user/User::COMMEN_USER
+      p_count = count_user%User::COMMEN_USER
+      if p_count!=0
+        page_count += 1
+      end
+      if user && !user.empty?
+        render :json =>{:user => user,:page => page_count, :current_city => 'success'}
       else
-        render :json => "nouser"
+        render :json => User.user_all(page)
       end
     else
       City.create(:name => city_name)
-      render :json => "nouser"
+     render :json => User.user_all(page)
     end
   end
 
@@ -87,6 +98,7 @@ class UsersController < ApplicationController
       name = params[:name]
       password = params[:password]
       email = params[:email]
+      token = params[:token]
       user_name = User.find_by_name(name)
       if user_name
         render :json => 'nameerror'
@@ -95,7 +107,11 @@ class UsersController < ApplicationController
         if user_email
           render :json => 'emailerror'
         else
-          user = User.new('name' => name,'password' => password,'email' => email,'status'=> '1')
+          if token
+            user = User.new('name' => name,'password' => password,'email' => email,'status'=> '1',:token => token)
+          else
+            user = User.new('name' => name,'password' => password,'email' => email,'status'=> '1')
+          end
           if user.save
             url =  User::URL_USER+"#{user.id}".to_s
             if user.update_attributes(:url => url)
@@ -218,13 +234,10 @@ class UsersController < ApplicationController
     if @user.status == 0
       render :private
     end
-    #    photo_pwd = show_pwd
     @photos = Photo.find_by_sql("select * from photos where user_id = '#{user_id}' and status = 1").paginate(:page => params[:page] ||= 1, :per_page => User::PER_PAGE_PHOTO)
     @page = params[:page]||1
     @ads = Ads.find(1)
     @pub_pho = 1
-
-     p @pub_pho
     render :layout => nil
   end
   def show_pwd
