@@ -270,10 +270,4 @@ class UsersController < ApplicationController
       format.json { head :no_content }
     end
   end
-  #  def search
-  #    name = params[:name].strip.blank? ? "1=1" : ["name like ?", "%#{params[:name].strip}%"]
-  #    url = params[:url].strip.blank? ? "1=1" : ["url = ?", "#{params[:url].strip}"]
-  #    @users = User.where(name).where(url).paginate(:page => params[:page] ||= 1, :per_page => User::PER_PAGE_USER)
-  #    @cities = City.all
-  #  end
 end
