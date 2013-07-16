@@ -258,3 +258,17 @@ img { border: none;}
 .scrollBox li { float: left; margin-right: 16px; font-size: 0;border:2px solid #fff;}
 .scrollBox li.sc_active { border:2px solid #ff0000;}
 
+
+/*install*/
+.install { padding: 20px;}
+.install h1 {
+    font-size: 18px;
+	background: #3683CE;
+	height: 40px;
+	color: #FFF;
+	line-height: 40px;
+	padding-left: 20px;
+	border-radius: 5px;
+	margin-bottom: 20px;
+}
+.install_p { line-height: 30px; font-size: 16px;}

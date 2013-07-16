@@ -102,7 +102,6 @@ $(function(){
 
         var imgSrc_big = bigImgName + jpg;
         $('.showPic img').attr('src',imgSrc_big);
-    //alert(o);
     })
 })
 //showBox图片左右点击移动
@@ -110,7 +109,6 @@ $(function(){
     var page = 1;
     var i = 1;
     $('span.next').click(function(){
-        //alert(0)
         var $parent = $(this).parents('div.showBox');
         var $pic_show = $parent.find('.showPic ul')
         var $smallImg = $parent.find('.showPic');
@@ -135,14 +133,12 @@ $(function(){
         var imgWidth = $(".showPic ul li").width();
         var divLeft = parseInt($(".showPic ul").css("left"));
 		
-        //alert(divLeft)
         var leftNum =Math.abs(divLeft/imgWidth);
         $('div.scrollBox > ul > li').eq(leftNum+1).addClass("sc_active").siblings().removeClass("sc_active");
     //var index = $('div.tab_ul li').index(this);
     })
 	
     $('span.prev').click(function(){
-        //alert(0)
         var $parent = $(this).parents('div.showBox');
         var $pic_show = $parent.find('.showPic ul')
         var $smallImg = $parent.find('.showPic');
@@ -166,8 +162,17 @@ $(function(){
         ////
         var imgWidth = $(".showPic ul li").width();
         var divLeft = parseInt($(".showPic ul").css("left"));
-        //alert(divLeft)
         var leftNum =Math.abs(divLeft/imgWidth);
         $('div.scrollBox > ul > li').eq(leftNum-1).addClass("sc_active").siblings().removeClass("sc_active");
     })
+})
+
+//修改页面主体高度
+$(function(){
+	var doc_height = $(document).height();
+	var head_height = $(".head").height();
+	var foot_height = $(".foot").height();
+
+	var main_height = doc_height-head_height-foot_height;
+	$(".main").css("height",main_height-40)
 })

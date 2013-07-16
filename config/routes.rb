@@ -15,7 +15,7 @@ PhotoAlum::Application.routes.draw do
 
   resources :admins do
     collection do
-      get 'checkornot','advert','exit_admins'
+      get 'checkornot','advert','exit_admins','download_apk','setup_user'
       get 'registerornot'
       get 'currect_user','cities_change'
       post 'advert_show'
@@ -36,11 +36,14 @@ PhotoAlum::Application.routes.draw do
 
   resources :users do
     collection do
-      get 'user_signin' ,'register','forget_pwd','change_pwd','album_pwd',
-        'change_describle','change_email','change_city','destroy_user','search','show_pwd','users_citys'
+      get 'forget_pwd','change_pwd','album_pwd',
+        'change_describle','change_email','change_city','destroy_user','search','users_citys'
       post 'show'
     end
   end
+  match '/register' => 'users#register'
+  match '/user_signin' => 'users#user_signin'
+  match 'users/show_pwd' => 'users#show_pwd'
   match '/index' => 'users#index'
   # The priority is based upon order of creation:
   # first created -> highest priority.

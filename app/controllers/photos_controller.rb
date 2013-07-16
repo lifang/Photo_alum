@@ -34,14 +34,14 @@ class PhotosController < ApplicationController
     wdh = img["width"]
     het = img["height"]
     px = wdh>het ? het/10 : wdh/10
-    p my_text
     img.combine_options do |c|
       c.gravity 'SouthWest'
       c.pointsize "#{px}"
       c.font ("fonts/simhei.ttf")
       c.encoding "utf-8"
       c.fill"white"
-      c.draw "text 10,0 'hellow'"
+      c.draw "text 10,0 '#{my_text}'"
+      p my_text
     end
     img.write(file_path)
     img1 = MiniMagick::Image.open file_path,"rb"

@@ -34,7 +34,7 @@
                <% end %> >私有图片</a>
 
           <%  else %>
-            <%= link_to "私有图片", "/users/show_pwd",:method=> :get , :remote => "true", "data-type" => "script" ,:id =>"exchange" ,:class => (@photos[0] ? ((@photos[0].status == 1) ? "" : "hover") : (@jackchen ? "hover" : "") ) %>
+            <%= link_to "私有图片", "/users/show_pwd",:method=> :post , :remote => "true", "data-type" => "script" ,:id =>"exchange" ,:class => (@photos[0] ? ((@photos[0].status == 1) ? "" : "hover") : (@jackchen ? "hover" : "") ) %>
           <% end %>
         </div>
       </div>
@@ -61,7 +61,7 @@
     <div class="ok_tab" style="display: none;">修改成功！</div>
     <div class="password_tab" style="display: none;">
       <span class="close">关闭</span>
-      <%= form_for @user, :url => { :action => :show_pwd, :controller => :users },:method=> :get, :html =>{ :remote => true, 'data-type' => 'script'} do |f| %>
+      <%= form_for @user, :url => { :action => :show_pwd, :controller => :users },:method=> :post, :html =>{ :remote => true, 'data-type' => 'script'} do |f| %>
         <h1>请输入访问密码</h1>
         <input type="password" name="user[photo_password]" class="password_input"/>
         <button type="submit"class="btn">确定</button>

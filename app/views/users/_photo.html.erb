@@ -3,9 +3,7 @@
     $(document).ready(function(){
       $("#users_list .pageTurn a").unbind("click");
       $("#users_list .pageTurn a").bind("click", function() {
-        alert(1)
         var url = this.href;
-        alert(url)
         $.ajax({
           async:true,
           url:url,

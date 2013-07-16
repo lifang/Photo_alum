@@ -1,6 +1,14 @@
 #encoding: utf-8
 class AdminsController < ApplicationController
   #管理员登录
+  def download_apk
+    file_path = "#{Rails.root}/public/uploads/LanTan.apk"
+    if file_path
+      send_file file_path, :type => "apk", :filename => 'new.apk'
+    else
+      render :nothing => true
+    end
+  end
   def admin_denglu
     if session[:currentuser].nil?
       @title = "Sign in"
@@ -67,7 +75,6 @@ class AdminsController < ApplicationController
   end
   #  发布广告
   def advert_show
-    p session[:currentuser]
     content = params[:content].to_s
     ads = Ads.where(:id => 1)
     if ads && !ads.empty?
@@ -79,5 +86,8 @@ class AdminsController < ApplicationController
         render :json => {:status => 1}
       end
     end
+  end
+  def setup_user
+    render :layout => nil
   end
 end
